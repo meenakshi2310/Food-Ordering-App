@@ -5,5 +5,29 @@
   },
   "devDependencies": {
     "parcel": "^2.15.2"
-  }
+  },
+  "name": "foododeringapp",
+  "version": "1.0.0",
+  "description": "This is a food ordering app created using React",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meenakshi2310/Food-Ordering-App.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Meenakshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meenakshi2310/Food-Ordering-App/issues"
+  },
+  "homepage": "https://github.com/meenakshi2310/Food-Ordering-App#readme",
+  "browserlist": [
+    "last 2 versions"
+  ]
 }

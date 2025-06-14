@@ -1,51 +1,127 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-const ele = <span>React Element</span>;
+//Header
+// - Logo
+// - Nav Items
+// Body
+// - Search
+// - RestaurantsContainer
+//     - RetaurantCard
+//         - img
+//         - Name of Res, star rating, cuisine, delivery time
+// Footer
+// - Copyright
+// - Links
+// - Address
+// - Content
 
-//React element
-const heading = (
-  <h1 id="heading" className="head">
-    Namaste React using JSX
-    {ele}
-  </h1>
-);
-
-//const data = api.getData(); //if we get malicious data then JSX skips this - it prevent cross site scripting
-
-//React Component
-//Class Based Components - OLD
-//Functional Components - NEW - Just a normal JS function which returns some JSX/react element
-
-// const HeadingComponent = () => {
-//   return <h1>Namaste React Functional Component</h1>;
+// const RestaurantCard = (props) => {
+//   return (
+//     <div className="res-card">
+//       <img className="res-logo" src={props.img} />
+//       <h3>{props.resName}</h3>
+//       <h4>{props.cuisine}</h4>
+//       <h4> 4.4 Star</h4>
+//       <h4>25 minutes</h4>
+//     </div>
+//   );
 // };
-//Both syntax is same
-// const HeadingComponent = () => <h1>Namaste React Functional Component</h1>
 
-const Title = () => (
-  <h1 id="heading" className="head">
-    Namaste React Title Functional Component
-  </h1>
-);
+//using resObj (API)
+const RestaurantCard = (props) => {
+  // const {resData} = props;
+  const { resData } = props;
+  const { img, name, cuisine, avgRating, deliveryTime, costForTwo } =
+    resData?.data; //destructuring
+  return (
+    <div className="res-card">
+      <img className="res-logo" src={img} />
+      {/* <h3>{resData.name}</h3> */}
+      <h3>{name}</h3>
+      <h4>{cuisine}</h4>
+      <h4>{avgRating} Star</h4>
+      <h4>${costForTwo / 100} for two</h4>
+      <h4>{deliveryTime} minutes</h4>
+    </div>
+  );
+};
 
-const number = 100;
+const resList = [
+  {
+    type: "resturant",
+    data: {
+      id: "23432",
+      img: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQAlAMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAAAAwQFBgcBAv/EAEIQAAIBAwMCAwUGBAMECwAAAAECAwAEEQUSITFBBhNRIjJhcYEUI5GxwdEzQlKhYnLwFRbh8QckU1RjZHOCkpOi/8QAGgEAAgMBAQAAAAAAAAAAAAAAAAMBAgQFBv/EACYRAAICAQQCAgIDAQAAAAAAAAABAgMRBBIhMRMiQVEyoTNCYQX/2gAMAwEAAhEDEQA/ANxooooAKKKKACiuVwsFBLEADuaAPVFR8+r2seQsgd+wH70yl12SBd80CFc8BH5PyyKRLU1ReGxsabJdInaKYQ6tZTIrC5jBIztYgEfSlrW8gu0328qyKDgkUyNkJdMo4yXaHNFczRmrlTtFcrtABRRRQAUUUUAFFFFABRRRQAV4WRWYqDyK7Iu5cZI9cUzuZPs0RYsv3aHGP1qG8LLJSy8Cl3fQWo+8f2uyjqag57tLlyZZcE8Bd3ApjcW8t2fMyFJOd2aTks5Y2B8zcRyM1w79ZZY+I8HTq08ILl8il5sWM/eRuPUHkU3SUbNoG9R3J6UgDLHIyyRKy9RgU7tbQZ86VAoPKp+tYU3N8GrG1cnhIoiRMQUPb1NJPtgmE0bSmXOQ6kL9Kk5IjKDgpUaQJrkW6pulJwR2A9aalt6KZ3dkpF4mnVlR7dZmPA2AgmpOTWhGimSDa57bsgfWmFpaxwxnanPQsetJzoygxspZCOXHXHpW+F9yXLMkqqm+ESSa5HuBdPYPdTnFSdvdQ3CboZFcd8HpVOiK7/LUcA+ySOCO+a8lJILjdbO0b5/lP9qvDWSi/bkrLTRf48F4zXagdM1ouAl7hewkxxn41Og5FdGFkZrMTHODg8M7RRRVyoUUUUAFFFFAAaZ6lB9otJEXOcZ474p5XMDFRKO5NEp4eSpROzKNpZnA9rOOPlTrCtgjoe9L6rYCJzPGPu294A4x/wAKinufssZmmbbGo9rccYrizg63tkdGEtyyhaaJDKvfkClRGJFyCcE0ytb63vMSQzxuVYAqrZwcZ/HHNOoPYtky3tdaSsZY1jW7LQMrL7w6CvWj24RnumOZZWIyewHb/XwpO7lRyAcZBp7pqeXaISCep2/Mmq1rMyZP1Hbvtjy/GD2ps0qyYDZK/OnEirIuXXAFMmKbiFwo6A4zTrGxcUM7pTCyiNfZ3cnPLH9q5JcbNokX2ueQfdIp5Mg2gvjFRV0cbUYZUHgjuaWxiOxuC7BmOxmyfhVm8P6iJ0NpI2Zoun+Jaq8CrKjAkD0x3NebWZ7O9jlUnIbI/amaa51SF3VqcTRaKSt5VmhSVDlXGRStd05YUUUUAFFFRms6xb6XEWldQ2O56VDaSywSz0SLMFGSQPnTSbU7WLOZAcdcVmmseL7y8ci2wkZ6O/6L+9edOs1urH7bqsssrdEiZsDB53EDjpnFYrNdCP48mmOn4zJl1v8AxVpcalZLlVAIJ2nOQD0PXiqTrWs6Xr32jT3t5YrJlBhvY5GJDdeYzjjP71B6rbJdTokUv3YP8PsAP1qS0+3htShuhGSThEzxWR6l2rLJnHZhR6Kncm9CQRKE8iDeABIMyE+8x9MgAfICtW0XVLC60m1+0z+RKsYV8N7IIHYkCmkun2F/biG6soChHOxdhHyI5qr+LPtGitbWluu60ZN0ZB9o4OCD8R6/Glb38JMfXGr7aL5LpZn9uxuobjB90HBpWxM0EIhnRllVj7LDHGfyrONHub9b4SWMgV0TaSDjrzz2q+6N4jjvZBp+qqolPCup9lj8D2NEXU5Y6f6GNT25XK/ZIXU6CMqSzH0UU3jXaobZ1H4V6u7f7DKPMbdGeULcZ+B+NJPPLKpIcEDoBxiosTT9uyY4a4PLkljyfkabyxCQncB05FdjlLOckHFKOyyKOaV2X6GWHLDd7o6NnoK8T8sGIOBSzqMgDOK7OQ0eMcr+1CB9lt8PSiTTEGc7CV/X9ak6iPDCkaWpP8zk/p+lS9egpea0cmz82FFFFMKCcz+XE7/0qTWP61qb6hqsxm2vbQAk7uctWwXChoXVuhGD8qyDULSTTr+7tJUBcMXXI4kRjkMPUdqxa1ScMI2aNR3Nsr9liW/Er5ji2FSY/TI/CpYXdxeWxsbS2mm2OGaQEFcdhntjnii4tLdI4FuGL7iFkUMcfDI6YpO3uvsM72enIo3gtgHgduTXEk1KPrydB07u1hDK3ivY2uQVVFjO1mBz9c02uX+2rE0P9XtEj48GvdzNcW5leTDu38TBIVOaUi0/VtQh8+FIYrMIV4lKmQ+o4P6U6Eti9jNfpt34fA4l1zULONTBeK0rEuVkwwb1/wBCo7X9ZvtQkhF0EknQYUQqRwe2O9OIYnFwtzZW7u8AKusaEj07D4URW82q6vFLbwFypBlKezgD1PY1LmsjI6bENrDQ4ZWtnkuJmsij/wAPZhh880rafYI4pJp72Rpw/wDIcAd+najXtXLl7RUKspAKDOMDvUTYvLG0cFr/ANZMvJgKn2XPHHqaWk5rc1jJrhBQwjUhqi3/AILa7lfc9tIo3HqeQP7g1G2195se2KRMd8nmmmsQtp/hq20mN1W5ll86529mHRfpxVQbVZIAUKhZgcez3rVZCb257xyZa1H229ZNCM3kJ/EQDuSelIpqtonvXUI+BkAql2Wka9rzOEbYUG4o0uHH/t60pZ6LDDdPZX+4XCsRiRzlj1x14GPx7UudagssdXWrG0n0XeO/tpD7FxE3ptcGlC+QW7detV6PQdIabykkurGT+VhdHa59BuBx9e1J6/bT6Fb+TfXPnQzRe2jtscg5BUEH2jx8KvCtSWYvgTPbGW18M1rQpbeXSrdrSVJY9g9pDkE96kKy7whrkNgyWy/drwoDcD4Bv3rS7W4S5iEiHg8EHqD6V1qrE1j6ObdVKuXItRRRThI01K4Ftas+QD05qI1PT7HXbKFplypXfDKnDrkdj6eoPBpbxWWGmtt4O1vyqE8HX+dNW1mONmfLJPb0pLknJxY2MWo7olfv/Cd7aO8lspvFHIMfvL80J6/LNQ1vZXLW0qtEIAp6S/dyE9eRitUl55xn500uJ1I8uUb17rIm4D8ayWaFP+N4ZphrJdTWTJtTVbjTztbLM2wr/T/r1peOXVodMWKDyZIoxtyzYFaI2maYUK/7PtgrdfLyuc/I0yPhvRQjKunAK3UC5lAP/wCqTLQTaxwzRHXQXOCl6LqZsNGcTjcMneV5wxPNMdM1KaH7T9l9+RuIz1cH0+NaLHpOlW8Yjh0y0Cr037n/ALk04hKWoItkhgB6+REqE/UDNRH/AJ3L3PsHr444Rnlt4U1jU7xri5jW0gbGZJjtyPgvvH8KuGmaLp+hxb7QF7ojm6kHtD/KO35/GpBpOcgHJ7scmmOpXS2ts80hGEBJNba9NCvkzWamy3jpFb1u6D6kUTjaMYPrTXwRa6fPdpcX0p81pdkK7d2Wxk54wPTmq9LqzXOozA8ZTeW9MngfhSWia5JpGozRhnEUpyQrYOP9enNKl3kdCDcdiNC1GG/tJJ006GO1tvN3JBu2zXPHIyp93qR/evE+mjXYC95ZT2mpp/DnzgyL9AdxGMc4PxqW0fxbpupoXfakkAzAvmli52kHPQfjSNvBqmoafLq0SW/2vzGMYgV42C9ORk5ycnA68c1RxTERdtM8rKZXJdB1x5mgkuY5oFOFkcNuGBk+yAecds1LzWunaraj7TJDHbxKqDdJIW4HBkXIxyeMdPrVitNM1aC2toWvryS4xua4OAIx2Uqwww+ZzTbU7fSbG4F5dXGneeF2mIISCSfaOwE5z/zojSo9ItdfZqMKXwVzWTFdvM6QXIe2CI0ptyqMmMYznseRmrf4P1Rz9mhnb2pYxuz/AFYqkaxrzS6d9j2xQ2MJLlY12B+44ycD4Z/anHhi/M2uxqjHCBMH6irR9ZZReUX4tsjYqKKK6JziP1uDzrE552nn5Hg/nVF09Ta+ZC3vxtitIdBIhVhlSMEVT9T09orh22/eKOcfzr2P6Vlvj/ZGimS6ZyDVDxGzDI7HvXt54wrncy7uoHO6oa8szKhdScj3cfnUNJealZkqdsyD+rg4+YqsNRxiReVGei5LPE2QT046cUlIybjjpVFk8RrB/Gt509AvtDNJr4vtgCGkkBHco37U7yJi/E0XouopJpkHeqHL40tFzteVj/hjP7VG3PjK4lytnbtk/wA0nH9qPIiVUaFeanb2sTySyKiqMlmPArOfEfiqPVVdYHxbRtwTx5h9flUHql9c3eTfTl8ciMcKv0qSs7e20O2tbu9t1nv7j27a3l92JP8AtGHck9j0qjluNFdOPZ9Dbw/pWoag0k8VpO0cpAV/LIUj1z0xVgvNH0fSIjNdW7anfgfwyxRF/wBfHPyqRtPFWpR2rzbkYIyrt28DP1qXg1Wy12NbfUIFSc8I4Hf4Gq+pLk1LJQP954hLsl0DTVQHhAGB/wDl2qTinXVsnQ7q4t7tFLGyuJN28d9jnr8j/anGveFEkuGAzHJnh17j4ioB/Dur2U6vauDIhDo4JUgjoe9Ub5wxysR6bVbws0dzPIGU4ZW6g16/2pHGpLuW78mpDxfpVxfLYanbRLFNdQB5o88BhgNj6/n8KrD6FOLqOG4lLFsHYvYVWUEu2E9QksjmbUZdTLLGCLdfaLA+9g1pf/RdpTyOt7MP40gC/JeT+1VLR9GfUbmHSbIfdJ7U0gXCwqTzz3PYev41tnhbTo7S1Vo02xKnlwj/AA9z9aKveXHRilY2nJk9RXaK6BlCmeoWguUDKdsqe636U8rlQ0msMlPBUpbcO7IFCSg+0h4z8v2qDvQm4qtrduRwwWBuPxxmr7fafHdjJ9mUdHFQV7DPbkLdx+YvQPnn6H9KxWU46NULc8Gf31xpcR23MNxFJjIW5hMQ/E9fpmqxf6pp6SYjtLeROxjmPHz9nrWj67bwXNr5MsksqSnaIDAGJ/T65FULVPBLxSGSKyvxH125QZ+A9oikdG2iyqOfKskPPq1iwAis1U45LS/8Kjri+d9wiCKD3iUk/iaeajHFaxJBHpZibd7TynLcfGmsaTXB2WtruY9AoyBV0zoVLSyhuwkd0aDfczXV0oaKzga48s5w7DAUH6kVam0iTVLqx1AkvFNYQBXJzyFww+ecn6148NeGry282bWUC2t4nkuvOUB5B+WQKu9jps2n26i0SKaAdISOPmtO7jgxaicJPEOiDtNIjgLpcxs9pKMSFeqkdDUinhssBJZyxSJ1GDhvwqWjvYYwRLZ3MRPYrkfTilmFvaxLMYWWZuYombHPqV7CpjByWJGaWRhqyhZYUflwvtH44FeorJLjA2biRjimrR38t151pIs5J5V1OM1KAaiY9txdW1tnsoJJ/KqSjCcs5Dpdld8TzW9k9lbdZoonG3rySP7ZqK8OaNPq6yXUxlij3n7+QFcn1X1Py4+Parja6TaQXRuIllur2TjzpucfBV9KsmnaJNJIk1+TsX3YS3J+Jx+VQ6vJIzz2/LGPhrw/BDAIreIxWYILsfemPqT3q3qoVQFGAOg9KFUKoCjAHQeleq2VwUFhGeUtzCiiirlQooooAK8uiupV1DKeoIzXqigCHvdBgmBMDeW3oRlah5tI1C1GYw5H/hNkfhVwopbriy6saM6vIY5TtvbO1mP/AJi3Gfx4pO3FpbnMWm2ykdNjEVo7ojjDqrD0IzTSXSrCT37SL6Lj8qU6P9Gq8pct9FJG0ctjuVhggS5/Sm9ncRWfEENxsByEe5BX8NtXRvD+mMebbHykYfrXP93dL/7uf/sb96FTJdMnzoq51iQj2IEU/wDqE00e6d5Cxjtg56N5W5h8iSavEeiabGfZs4j/AJufzp3Da28H8GCKP/IgFSqX9keZfRR4LXUrwYVLmRT39xf0FS9l4ak4NzKqD+mMZP41Z6KuqooW7WxraWFvZriCMA92PLH606oopiWBYUUUVIBRRRQAUUUUAFFFFABRRRQAUUUUAcooooIOiiiigkKKKKACiiigAooooAKKKKAP/9k=",
+      name: "Anupama Kitchen",
+      cuisine: ["Biryani, Chole Bhature"],
+      costForTwo: 40000,
+      avgRating: 4.2,
+      deliveryTime: 32,
+    },
+  },
+  {
+    type: "resturant",
+    data: {
+      id: "23433",
+      img: "data:image/jpeg;base64,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",
+      name: "South Point",
+      cuisine: ["Dosa, Idli"],
+      costForTwo: 30000,
+      avgRating: 4.4,
+      deliveryTime: 20,
+    },
+  },
+];
 
-const HeadingComponent = () => (
-  <div id="container">
-    <Title /> {/*Component composition */}
-    <Title></Title> {/*We can use component like this*/}
-    {Title()} {/* Calling title function inside curly braces, same as above*/}
-    <h1>Namaste React Functional Component</h1>
-    <h2>
-      {number} {console.log(3 - 1)}
-    </h2>
-    {heading}
-  </div>
-);
+const Body = () => {
+  return (
+    <div className="body">
+      <div className="search">Search</div>
+      <div className="res-container">
+        {/* <RestaurantCard 
+          img=""
+          resName="Anupama Kitchen"
+          cuisine="Biryani, North Indian, Asian"
+        /> */}
+        {/* using resObj (API) */}
+        {resList.map((resturant) => (
+          <RestaurantCard key={resturant.data.id} resData={resturant} />
+        ))}
+      </div>
+    </div>
+  );
+};
+const Header = () => {
+  return (
+    <div className="header">
+      <div className="logo-container">
+        <img
+          className="logo"
+          src="https://cdn-icons-png.flaticon.com/512/5787/5787016.png"
+          alt="Burger Logo"
+        />
+      </div>
+      <div className="nav-items">
+        <ul>
+           <li>Home</li>
+          <li>About us</li>
+          <li>Content Us</li>
+          <li>Cart</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+const AppLayout = () => {
+  return (
+    <div className="app">
+      <Header />
+      <Body />
+    </div>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// root.render(heading); // This how we render a react element
-
-root.render(<HeadingComponent />); // This how we render a functional component
+root.render(<AppLayout />);
