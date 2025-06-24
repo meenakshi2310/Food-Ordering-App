@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurauntMenu from "./components/RestaurantMenu";
 // import Grocery from "./components/Grocery";
+import "../index.css";
 
 //Chunking - Code Spliting - Dynamic bundling - lazy loading On demand loading - Break your app in smaller logical chunks
 const Grocery = lazy(() => import("./components/Grocery"));

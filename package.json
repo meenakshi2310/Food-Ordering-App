@@ -1,12 +1,19 @@
 {
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
-    "parcel": "^2.15.2"
+    "autoprefixer": "^10.4.21",
+    "init": "^0.1.2",
+    "nx": "^21.2.1",
+    "parcel": "^2.15.4",
+    "postcss": "^8.5.6",
+    "tailwind": "^2.3.1",
+    "tailwindcss": "^3.4.17"
   },
   "name": "foododeringapp",
   "version": "1.0.0",
@@ -29,7 +36,8 @@
     "url": "https://github.com/meenakshi2310/Food-Ordering-App/issues"
   },
   "homepage": "https://github.com/meenakshi2310/Food-Ordering-App#readme",
-  "browserlist": [
+  "browserList": [
+    ">1%",
     "last 2 versions"
   ]
 }

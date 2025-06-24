@@ -2,6 +2,7 @@ import { LOGO_URL } from "../utils/constants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import "../../index.css";
 
 const Header = () => {
   //   let btnName = "Login";
@@ -9,12 +10,12 @@ const Header = () => {
   const onlinestatus = useOnlineStatus();
 
   return (
-    <div className="header">
-      <div className="logo-container">
-        <img className="logo" src={LOGO_URL} alt="Burger Logo" />
+    <div className="flex justify-between">
+      <div className="">
+        <img className="w-20" src={LOGO_URL} alt="Burger Logo" />
       </div>
-      <div className="nav-items">
-        <ul>
+      <div className="">
+        <ul className="flex p-4 m-4">
           <li>Online Status: {onlinestatus ? "🟢" : "🔴"}</li>
           <li>
             <Link to="/">Home</Link>
