@@ -1,35 +1,38 @@
 import { LOGO_URL } from "../utils/constants";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import "../../index.css";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
   //   let btnName = "Login";
   const [btnNameReact, setBtnNameReact] = useState("Login");
   const onlinestatus = useOnlineStatus();
 
+  const { loggedInUser } = useContext(UserContext);
+
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between shadow-lg sm:bg-yellow-50 md: bg-green-50 lg:bg-pink-50">
       <div className="">
         <img className="w-20" src={LOGO_URL} alt="Burger Logo" />
       </div>
-      <div className="">
+      <div className="flex items-center">
         <ul className="flex p-4 m-4">
-          <li>Online Status: {onlinestatus ? "🟢" : "🔴"}</li>
+          <li className="px-4">Online Status: {onlinestatus ? "🟢" : "🔴"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li className="px-4">
             <Link to="/About">About us</Link>
           </li>
-          <li>
+          <li className="px-4">
             <Link to="/Contact">Content Us</Link>
           </li>
-          <li>
+          <li className="px-4">
             <Link to="/Grocery">Grocery</Link>
           </li>
-          <li>Cart</li>
+          <li className="px-4">Cart</li>
           <button
             className="login"
             onClick={() => {
@@ -40,6 +43,7 @@ const Header = () => {
           >
             {btnNameReact}
           </button>
+          <li className="">{loggedInUser}</li>
         </ul>
       </div>
     </div>

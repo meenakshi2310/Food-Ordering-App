@@ -3,6 +3,7 @@ import Shimmer from "./Shimmer";
 import { useParams } from "react-router";
 import { MenuAPI } from "../utils/constants";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurauntMenu = () => {
   // const [resInfo, setResInfo] = useState(null);
@@ -22,8 +23,9 @@ const RestaurauntMenu = () => {
 
   const resInfo = useRestaurantMenu(resId); //custom hook
 
+  const [showIndex, setShowIndex] = useState(null);
+
   if (resInfo === null) return <Shimmer />;
-  // console.log("resInfo" + resInfo);
   const { name, cuisines, costForTwoMessage } =
     resInfo?.cards[2]?.card?.card?.info;
   // console.log(
@@ -31,21 +33,30 @@ const RestaurauntMenu = () => {
   // );
   let { itemCards } =
     resInfo?.cards[4]?.groupedCard.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+  console.log("resInfo" + resInfo?.cards[4]?.groupedCard.cardGroupMap?.REGULAR);
 
+  const categories =
+    resInfo?.cards[4]?.groupedCard.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory"
+    );
+  console.log("category ", categories);
   return (
-    <div className="menu">
-      <h1>{name}</h1>
-      <p>
+    <div className="text-center">
+      <h1 className="font-bold my-10 text-2xl">{name}</h1>
+      <p className="font-bold text-lg">
         {cuisines.join(", ")} - {costForTwoMessage}
       </p>
-      <ul>
-        {itemCards?.map((item) => (
-          <li key={item.card.info.id}>
-            {item.card.info.name} - {" Rs."}
-            {item.card.info.price / 100 || item.card.info.dafaultPrice / 100}
-          </li>
-        ))}
-      </ul>
+      {/* categories accordions */}
+      {categories.map((category, index) => (
+        <RestaurantCategory //controlled component
+          key={category?.card?.card?.title}
+          data={category?.card?.card}
+          showItems={index === showIndex ? true : false}
+          setShowIndex={() => setShowIndex(index)} //lifting the state up
+        />
+      ))}
     </div>
   );
 };

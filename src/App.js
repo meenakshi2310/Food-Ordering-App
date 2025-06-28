@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -9,22 +9,31 @@ import Error from "./components/Error";
 import RestaurauntMenu from "./components/RestaurantMenu";
 // import Grocery from "./components/Grocery";
 import "../index.css";
+import UserContext from "./utils/UserContext";
 
 //Chunking - Code Spliting - Dynamic bundling - lazy loading On demand loading - Break your app in smaller logical chunks
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+
+  useEffect(() => {
+    const data = {
+      name: "Meenakshi",
+    };
+    setUserName(data.name);
+  }, []);
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-      {/* If my path =/
-      <Body />
-      If my path =/about
-      <About />
-      If my path =/contact
-      <Contact /> */}
-    </div>
+    //Changing the default value of context
+    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+      <div className="app">
+        {/* Nested Context */}
+        <UserContext.Provider value={{ loggedInUser: "Elon Musk" }}>
+          <Header />
+        </UserContext.Provider>
+        <Outlet />
+      </div>
+    </UserContext.Provider>
   );
 };
 
