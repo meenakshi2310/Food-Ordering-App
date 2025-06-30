@@ -10,6 +10,9 @@ import RestaurauntMenu from "./components/RestaurantMenu";
 // import Grocery from "./components/Grocery";
 import "../index.css";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
 
 //Chunking - Code Spliting - Dynamic bundling - lazy loading On demand loading - Break your app in smaller logical chunks
 const Grocery = lazy(() => import("./components/Grocery"));
@@ -24,16 +27,19 @@ const AppLayout = () => {
     setUserName(data.name);
   }, []);
   return (
-    //Changing the default value of context
-    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-      <div className="app">
-        {/* Nested Context */}
-        <UserContext.Provider value={{ loggedInUser: "Elon Musk" }}>
-          <Header />
-        </UserContext.Provider>
-        <Outlet />
-      </div>
-    </UserContext.Provider>
+    //We have wrapp the whole app inside the provider(Redux store)
+    <Provider store={appStore}>
+      {/* Changing the default value of context */}
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="app">
+          {/* Nested Context */}
+          <UserContext.Provider value={{ loggedInUser: "Elon Musk" }}>
+            <Header />
+          </UserContext.Provider>
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -66,6 +72,10 @@ const appRouter = createBrowserRouter([
             <Grocery />
           </Suspense>
         ),
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
     errorElement: <Error />,

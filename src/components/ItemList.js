@@ -1,7 +1,18 @@
+import { useDispatch } from "react-redux";
 import { IMG_URL } from "../utils/constants";
+import { addItems } from "../utils/cartSlice";
+import Shimmer from "./Shimmer";
 
 const ItemList = ({ items }) => {
   console.log("item List ", items[0].itemCards[0]);
+
+  const dispatch = useDispatch();
+
+  const handleAddItem = (item) => {
+    //dispatch an action
+    dispatch(addItems(item));
+  };
+
   return (
     <div>
       {items.map((item) => (
@@ -11,7 +22,10 @@ const ItemList = ({ items }) => {
         >
           <div className="w-3/12 p-4">
             <div className="absolute">
-              <button className="p-2 rounded-lg bg-black text-white shadow-lg">
+              <button
+                className="p-2 rounded-lg bg-black text-white shadow-lg"
+                onClick={() => handleAddItem(item)}
+              >
                 Add+
               </button>
             </div>
