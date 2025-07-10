@@ -43,3 +43,6 @@ Server Side Routing
  - Configure Parcel config file to disable default bebel transpilation
  - Jest configuration , npx jest --init
  - Install jsdom library, npm i --save-dev jest-environment-jsdom
+ - Install @babel/preset-react - to make JSX work in tst cases - npm i -D @babel/preset-react
+ - Include @babel/preset-react inside my babel configuration
+ - Install @testing-library/jest-dom - npm i -D @testing-library/jest-dom
