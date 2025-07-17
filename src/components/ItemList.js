@@ -4,7 +4,7 @@ import { addItems } from "../utils/cartSlice";
 import Shimmer from "./Shimmer";
 
 const ItemList = ({ items }) => {
-  console.log("item List ", items[0].itemCards[0]);
+  //console.log("item List ", items[0].itemCards[0]);
 
   const dispatch = useDispatch();
 
@@ -17,6 +17,7 @@ const ItemList = ({ items }) => {
     <div>
       {items.map((item) => (
         <div
+          data-testid="foodItems"
           key={item.itemCards[0].card.info.id}
           className="p-2 m-2 border-gray-200 border-b-2 text-left flex justify-between"
         >

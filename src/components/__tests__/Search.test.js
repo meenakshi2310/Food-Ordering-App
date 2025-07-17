@@ -1,8 +1,8 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import React from "react";
+import { fireEvent, render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Body from "../Body";
 import MOCK_DATA from "../mocks/mockResListData.json";
-import { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
 
 //dummy fetch function

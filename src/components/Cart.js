@@ -1,10 +1,11 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ItemList from "./ItemList";
 import { clearCart } from "../utils/cartSlice";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items); //make sure you are subscribing to a correct store
-  console.log("cartItems", cartItems);
+  //console.log("cartItems", cartItems);
 
   const dispatch = useDispatch();
   const handleClearCart = () => {

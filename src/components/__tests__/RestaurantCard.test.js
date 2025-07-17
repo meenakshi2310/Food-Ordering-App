@@ -1,3 +1,4 @@
+import React from "react";
 import RestaurantCard, { withPromotedLabel } from "../RestaurantCard";
 import { render, screen } from "@testing-library/react";
 import MOCK_DATA from "../mocks/resCardMock.json";

@@ -1,3 +1,4 @@
+import React from "react";
 import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import resList from "../utils/mockData";
 import { useState, useEffect, useContext } from "react";
@@ -11,7 +12,7 @@ const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filterRestarurants, setfilterRestarurants] = useState([]);
-  console.log("listOfRestaurants ", listOfRestaurants);
+  //console.log("listOfRestaurants ", listOfRestaurants);
 
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
@@ -26,9 +27,9 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.592690692859083&lng=77.34537675976752&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
-    console.log(
-      json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
-    );
+    // console.log(
+    //   json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
+    // );
     //optional chaining
     setListOfRestaurants(
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants

@@ -1,12 +1,36 @@
+import React from "react";
 import Contact from "../Contact";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { Provider } from "react-redux";
+import appStore from "../../utils/appStore";
 
 describe("Contact Us Page test cases", () => {
   //describe is for grouping testcases
+
+  // afterAll(() => {
+  //   console.log("After All"); //it will run after all testcases
+  // });
+
+  // afterEach(() => {
+  //   console.log("after Each"); //it will run after each testcases
+  // });
+
+  // beforeAll(() => {
+  //   console.log("Before All"); //it will run before each testcases
+  // });
+
+  // beforeEach(() => {
+  //   console.log("Before Each"); //it will run before each testcases
+  // });
+
   //it and test same
   it("Should load contact us component", () => {
-    render(<Contact />);
+    render(
+      <Provider store={appStore}>
+        <Contact />
+      </Provider>
+    );
 
     const heading = screen.getByRole("heading");
 

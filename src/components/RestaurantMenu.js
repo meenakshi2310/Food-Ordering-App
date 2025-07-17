@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router";
 import { MenuAPI } from "../utils/constants";
@@ -33,7 +33,7 @@ const RestaurauntMenu = () => {
   // );
   let { itemCards } =
     resInfo?.cards[4]?.groupedCard.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
-  console.log("resInfo" + resInfo?.cards[4]?.groupedCard.cardGroupMap?.REGULAR);
+  //console.log("resInfo" + resInfo?.cards[4]?.groupedCard.cardGroupMap?.REGULAR);
 
   const categories =
     resInfo?.cards[4]?.groupedCard.cardGroupMap?.REGULAR?.cards.filter(
@@ -41,7 +41,7 @@ const RestaurauntMenu = () => {
         c.card?.card?.["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory"
     );
-  console.log("category ", categories);
+  //console.log("category ", categories);
   return (
     <div className="text-center">
       <h1 className="font-bold my-10 text-2xl">{name}</h1>
